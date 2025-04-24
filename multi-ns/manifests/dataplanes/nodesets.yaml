@@ -19,7 +19,7 @@ spec:
     ctlplaneInterface: enp4s0
     dnsSearchDomains:
       - osptest.openstack-a.org
-    provisionServerName: openstack-a-edpm-provisionserver
+    # provisionServerName: openstack-a-edpm-provisionserver
   nodeTemplate:
     ansible:
       ansiblePort: 22
@@ -149,7 +149,7 @@ spec:
     ctlplaneInterface: enp4s0
     dnsSearchDomains:
       - osptest.openstack-b.org
-    provisionServerName: openstack-b-edpm-provisionserver
+    # provisionServerName: openstack-b-edpm-provisionserver
   nodeTemplate:
     ansible:
       ansiblePort: 22
