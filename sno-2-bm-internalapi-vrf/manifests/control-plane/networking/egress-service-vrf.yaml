@@ -1,0 +1,23 @@
+---
+apiVersion: k8s.ovn.org/v1
+kind: EgressService
+metadata:
+  # The name of the EgressService resource must match the name of the
+  # load-balancer service that you want to modify.
+  name: ironic-internal
+  # The namespace for the EgressService must match the namespace of the
+  # load-balancer service that you want to modify.
+  namespace: openstack 
+spec:
+  # You can use the sourceIPBy: "Network" setting on clusters that use
+  # OVN-Kubernetes configured with the gatewayConfig.routingViaHost
+  # specification set to true only. Additionally, if you use the sourceIPBy:
+  # "Network" setting, you must schedule the application workload on nodes
+  # configured with the network VRF instance.
+  #sourceIPBy: "Network"
+  sourceIPBy: "LoadBalancerIP"
+  # Specify the routing table for egress traffic.
+  network: "11"
+  nodeSelector:
+    matchLabels:
+      vrf: "true" 
