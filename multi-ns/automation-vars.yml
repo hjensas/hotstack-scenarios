@@ -47,7 +47,7 @@ stages:
         need any networkAttachments.
       * There can only be one node with the label openstack.org/cinder-lvm=.
         Apply the label using the command: ``oc label node <nodename> openstack.org/cinder-lvm=``
-    cmd: "oc label node master-0 openstack.org/cinder-lvm="
+    command: "oc label node master-0 openstack.org/cinder-lvm="
 
   - name: Metal platform Provisioning CR
     documentation: |
@@ -151,7 +151,7 @@ stages:
         --for condition=Ready --timeout=60m
 
   - name: Cloud a - Dataplane SSH key secret
-    cmd: >-
+    command: >-
       oc create -n openstack-a secret generic dataplane-ansible-ssh-private-key-secret
       --save-config --dry-run=client
       --from-file=authorized_keys=/home/zuul/.ssh/id_rsa.pub
@@ -165,7 +165,7 @@ stages:
         --timeout=30s
 
   - Name: Cloud b - Dataplane SSH key secret
-    cmd: >-
+    command: >-
       oc create -n openstack-b secret generic dataplane-ansible-ssh-private-key-secret
       --save-config --dry-run=client
       --from-file=authorized_keys=/home/zuul/.ssh/id_rsa.pub
@@ -179,7 +179,7 @@ stages:
         --timeout=30s
 
   - name: Cloud a - Nova migration SSH key secret
-    cmd: >-
+    command: >-
       oc create -n openstack-a secret generic nova-migration-ssh-key
       --save-config --dry-run=client
       --from-file=ssh-privatekey=/home/zuul/.ssh/id_nova_migrate
@@ -192,7 +192,7 @@ stages:
         --timeout=30s
 
   - Name: Cloud b - Nova migration SSH key secret
-    cmd: >-
+    command: >-
       oc create -n openstack-b secret generic nova-migration-ssh-key
       --save-config --dry-run=client
       --from-file=ssh-privatekey=/home/zuul/.ssh/id_nova_migrate
@@ -208,7 +208,7 @@ stages:
     manifest: manifests/dataplanes/secrets.yaml
 
   - name: Cloud a - BaremetalHosts BMC secret
-    cmd: >-
+    command: >-
       oc create -n openstack-a secret generic bmc-secret
       --save-config --dry-run=client
       --from-literal=username=admin
@@ -221,7 +221,7 @@ stages:
         --timeout=30s
 
   - Name: Cloud b - BaremetalHosts BMC secret
-    cmd: >-
+    command: >-
       oc create -n openstack-b secret generic bmc-secret
       --save-config --dry-run=client
       --from-literal=username=admin
