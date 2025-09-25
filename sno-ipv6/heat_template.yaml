@@ -631,7 +631,7 @@ outputs:
           replicas: 0
       metadata:
         name: sno
-       networking:
+      networking:
          clusterNetwork:
            - cidr: fd01::/48
              hostPrefix: 64
