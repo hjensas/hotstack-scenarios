@@ -244,12 +244,11 @@ resources:
       subnet: {get_resource: ironic-subnet}
 
   nat64-router-extra-routes:
-    type: OS::Neutron::ExtraRouteSet
+    type: OS::Neutron::ExtraRoute
     properties:
-      router: {get_resource: nat64-router}
-      routes:
-        - destination: "::/0"
-          nexthop: {get_attr: [nat64-appliance-ipv6, fixed_ips, 0, ip_address]}
+      router_id: {get_resource: nat64-router}
+      destination: "::/0"
+      nexthop: {get_attr: [nat64-appliance-ipv6, fixed_ips, 0, ip_address]}
 
   #
   # NAT64 - instance and related resources
