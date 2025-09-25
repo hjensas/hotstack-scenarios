@@ -654,11 +654,11 @@ outputs:
         name: sno
       rendezvousIP: {get_attr: [master0-machine-port, fixed_ips, 0, ip_address]}
       additionalNTPSources: {get_param: ntp_servers}
-       bootArtifactsBaseURL:
-         str_replace:
-           template: http://[$server_address]:8081/boot-artifacts
-           params:
-             $server_address: {get_attr: [controller-machine-port, fixed_ips, 0, ip_address]}
+      bootArtifactsBaseURL:
+        str_replace:
+          template: http://[$server_address]:8081/boot-artifacts
+          params:
+            $server_address: {get_attr: [controller-machine-port, fixed_ips, 0, ip_address]}
       hosts:
         - hostname: master-0
           role: master
