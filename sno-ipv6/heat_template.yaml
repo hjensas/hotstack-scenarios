@@ -243,6 +243,9 @@ resources:
       router: {get_resource: nat64-router}
       subnet: {get_resource: ironic-subnet}
 
+  # NOTE: Using unsupported OS::Neutron::ExtraRoute instead of
+  # OS::Neutron::ExtraRouteSet because OVN and extraroute-atomic ?
+  # See: https://etherpad.opendev.org/p/ovn-extraroute-atomic
   nat64-router-extra-routes:
     type: OS::Neutron::ExtraRoute
     properties:
