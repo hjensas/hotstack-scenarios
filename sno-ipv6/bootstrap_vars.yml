@@ -49,7 +49,7 @@ stack_parameters:
   controller_params:
     image: hotstack-controller
     flavor: hotstack.small
-  nat6_appliance_params:
+  nat64_appliance_params:
     image: nat64-appliance
     flavor: hotstack.small
   ocp_master_params:
