@@ -441,7 +441,7 @@ resources:
       type: json
       value:
         extra_dhcp_opts:
-          - opt_name: "59"
+          - opt_name: "tag:ipxe6,59"
             opt_value:
               str_replace:
                 template: http://[$server_address]:8081/boot-artifacts/agent.x86_64.ipxe
