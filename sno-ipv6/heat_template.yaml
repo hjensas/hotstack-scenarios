@@ -671,15 +671,15 @@ outputs:
               macAddress: {get_attr: [master0-ironic-port, mac_address]}
           networkConfig:
             interfaces:
-               - name: eth0
-                 type: ethernet
-                 state: up
-                 mac-address: {get_attr: [master0-machine-port, mac_address]}
-                 ipv4:
-                   enabled: false
-                 ipv6:
-                   enabled: true
-                   dhcp: true
+              - name: eth0
+                type: ethernet
+                state: up
+                mac-address: {get_attr: [master0-machine-port, mac_address]}
+                ipv4:
+                  enabled: false
+                ipv6:
+                  enabled: true
+                  dhcp: true
               - name: eth1
                 type: ethernet
                 state: down
