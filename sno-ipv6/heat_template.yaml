@@ -614,49 +614,6 @@ outputs:
     description: Controller Floating IP
     value: {get_attr: [controller-floating-ip, floating_ip_address]}
 
-#   sushy_emulator_uuids:
-#     description: UUIDs of instances to manage with sushy-tools - RedFish virtual BMC
-#     value:
-#       ironic0: {get_resource: ironic0}
-#       ironic1: {get_resource: ironic1}
-
-#   ironic_nodes:
-#     description: Ironic nodes YAML, used with openstack baremetal create to enroll nodes in Openstack Ironic
-#     value:
-#       nodes:
-#         - name: ironic0
-#           driver: redfish
-#           bios_interface: no-bios
-#           boot_interface: redfish-virtual-media
-#           driver_info:
-#             redfish_address: http://sushy-emulator.apps.sno.openstack.lab
-#             redfish_system_id:
-#               str_replace:
-#                 template: "/redfish/v1/Systems/$SYS_ID"
-#                 params:
-#                   $SYS_ID: {get_resource: ironic0}
-#             redfish_username: admin
-#             redfish_password: password
-#           ports:
-#             - address: {get_attr: [ironic0-port, mac_address]}
-#               physical_network: ironic
-#         - name: ironic1
-#           driver: redfish
-#           bios_interface: no-bios
-#           boot_interface: redfish-virtual-media
-#           driver_info:
-#             redfish_address: http://sushy-emulator.apps.sno.openstack.lab
-#             redfish_system_id:
-#               str_replace:
-#                 template: "/redfish/v1/Systems/$SYS_ID"
-#                 params:
-#                   $SYS_ID: {get_resource: ironic1}
-#             redfish_username: admin
-#             redfish_password: password
-#           ports:
-#             - address: {get_attr: [ironic1-port, mac_address]}
-#               physical_network: ironic
-
   ocp_install_config:
     description: OCP install-config.yaml
     value:
@@ -731,6 +688,7 @@ outputs:
                 type: ethernet
                 state: down
                 mac-address: {get_attr: [master0-ironic-port, mac_address]}
+
   controller_ansible_host:
     description: >
       Controller ansible host, this struct can be passed to the ansible.builtin.add_host module
@@ -740,6 +698,50 @@ outputs:
       ansible_host: {get_attr: [controller-floating-ip, floating_ip_address]}
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
       groups: controllers
+
+#   sushy_emulator_uuids:
+#     description: UUIDs of instances to manage with sushy-tools - RedFish virtual BMC
+#     value:
+#       ironic0: {get_resource: ironic0}
+#       ironic1: {get_resource: ironic1}
+
+#   ironic_nodes:
+#     description: Ironic nodes YAML, used with openstack baremetal create to enroll nodes in Openstack Ironic
+#     value:
+#       nodes:
+#         - name: ironic0
+#           driver: redfish
+#           bios_interface: no-bios
+#           boot_interface: redfish-virtual-media
+#           driver_info:
+#             redfish_address: http://sushy-emulator.apps.sno.openstack.lab
+#             redfish_system_id:
+#               str_replace:
+#                 template: "/redfish/v1/Systems/$SYS_ID"
+#                 params:
+#                   $SYS_ID: {get_resource: ironic0}
+#             redfish_username: admin
+#             redfish_password: password
+#           ports:
+#             - address: {get_attr: [ironic0-port, mac_address]}
+#               physical_network: ironic
+#         - name: ironic1
+#           driver: redfish
+#           bios_interface: no-bios
+#           boot_interface: redfish-virtual-media
+#           driver_info:
+#             redfish_address: http://sushy-emulator.apps.sno.openstack.lab
+#             redfish_system_id:
+#               str_replace:
+#                 template: "/redfish/v1/Systems/$SYS_ID"
+#                 params:
+#                   $SYS_ID: {get_resource: ironic1}
+#             redfish_username: admin
+#             redfish_password: password
+#           ports:
+#             - address: {get_attr: [ironic1-port, mac_address]}
+#               physical_network: ironic
+
 
 #   ansible_inventory:
 #     description: Ansible inventory
