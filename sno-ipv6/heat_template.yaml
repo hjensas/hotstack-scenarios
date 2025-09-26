@@ -684,10 +684,6 @@ outputs:
                     - ip: {get_attr: [master0-machine-port, fixed_ips, 0, ip_address]}
                       prefix-length: 64
                   dhcp: false
-                dns-resolver:
-                  config:
-                    server:
-                      - "2620:cf:cf:cf02::fff0"
               - name: eth1
                 type: ethernet
                 state: down
@@ -702,7 +698,10 @@ outputs:
                   next-hop-interface: eth0
                   next-hop-address: {get_attr: [machine-subnet, gateway_ip]}
                   table-id: 254
-
+            dns-resolver:
+              config:
+                server:
+                  - "2620:cf:cf:cf02::fff0"
   controller_ansible_host:
     description: >
       Controller ansible host, this struct can be passed to the ansible.builtin.add_host module
