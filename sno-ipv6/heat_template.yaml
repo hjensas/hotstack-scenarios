@@ -130,6 +130,7 @@ resources:
       network: {get_resource: machine-net}
       ip_version: 6
       cidr: "2620:cf:cf:cf02::/64"
+      gateway_ip: "2620:cf:cf:cf02::1"
       ipv6_address_mode: dhcpv6-stateful
       ipv6_ra_mode: dhcpv6-stateful
       dns_nameservers:
@@ -552,8 +553,8 @@ resources:
           volume_id: {get_resource: master0-cinder-vol2}
       networks:
         - port: {get_resource: master0-machine-port}
-        # - port: {get_attr: [master0-trunk0, port_id]}
-        # - port: {get_resource: master0-ironic-port}
+        - port: {get_attr: [master0-trunk0, port_id]}
+        - port: {get_resource: master0-ironic-port}
 
 #   #
 #   # Ironics
@@ -665,10 +666,10 @@ outputs:
           interfaces:
             - name: eth0
               macAddress: {get_attr: [master0-machine-port, mac_address]}
-            # - name: eth1
-            #   macAddress: {get_attr: [master0-ctlplane-trunk-parent-port, mac_address]}
-            # - name: eth2
-            #   macAddress: {get_attr: [master0-ironic-port, mac_address]}
+            - name: eth1
+              macAddress: {get_attr: [master0-ctlplane-trunk-parent-port, mac_address]}
+            - name: eth2
+              macAddress: {get_attr: [master0-ironic-port, mac_address]}
           networkConfig:
             interfaces:
               - name: eth0
@@ -680,14 +681,20 @@ outputs:
                 ipv6:
                   enabled: true
                   dhcp: true
-              # - name: eth1
-              #   type: ethernet
-              #   state: down
-              #   mac-address: {get_attr: [master0-ctlplane-trunk-parent-port, mac_address]}
-              # - name: eth2
-              #   type: ethernet
-              #   state: down
-              #   mac-address: {get_attr: [master0-ironic-port, mac_address]}
+              - name: eth1
+                type: ethernet
+                state: down
+                mac-address: {get_attr: [master0-ctlplane-trunk-parent-port, mac_address]}
+              - name: eth2
+                type: ethernet
+                state: down
+                mac-address: {get_attr: [master0-ironic-port, mac_address]}
+            routes:
+              config:
+                - destination: "::/0"
+                  next-hop-interface: eth0
+                  next-hop-address: {get_attr: [machine-subnet, gateway_ip]}
+                  table-id: 254
 
   controller_ansible_host:
     description: >
