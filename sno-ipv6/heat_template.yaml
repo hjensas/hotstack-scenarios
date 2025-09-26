@@ -680,7 +680,14 @@ outputs:
                   enabled: false
                 ipv6:
                   enabled: true
-                  dhcp: true
+                  address:
+                    - ip: {get_attr: [master0-machine-port, fixed_ips, 0, ip_address]}
+                      prefix-length: 64
+                  dhcp: false
+                dns-resolver:
+                  config:
+                    server:
+                      - "2620:cf:cf:cf02::fff0"
               - name: eth1
                 type: ethernet
                 state: down
