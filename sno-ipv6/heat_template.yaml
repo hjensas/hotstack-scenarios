@@ -230,12 +230,6 @@ resources:
       router: {get_resource: nat64-router}
       subnet: {get_resource: nat64-ipv6-subnet}
 
-  machine-net-ipv4-router-interface:
-    type: OS::Neutron::RouterInterface
-    properties:
-      router: {get_resource: router}
-      subnet: {get_resource: machine-subnet-ipv4}
-
   machine-net-router-interface:
     type: OS::Neutron::RouterInterface
     properties:
