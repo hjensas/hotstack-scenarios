@@ -681,7 +681,7 @@ outputs:
       kind: AgentConfig
       metadata:
         name: sno
-      rendezvousIP: {get_attr: [master0-machine-port, fixed_ips, 0, ip_address]}
+      rendezvousIP: {get_attr: [master0-machine-port, fixed_ips, 1, ip_address]}
       additionalNTPSources: {get_param: ntp_servers}
       bootArtifactsBaseURL:
         str_replace:
