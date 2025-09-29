@@ -236,6 +236,12 @@ resources:
       router: {get_resource: nat64-router}
       subnet: {get_resource: machine-subnet}
 
+  machine-net-ipv4-router-interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router: {get_resource: router}
+      subnet: {get_resource: machine-subnet-ipv4}
+
   ctlplane-net-router-interface:
     type: OS::Neutron::RouterInterface
     properties:
@@ -422,17 +428,12 @@ resources:
         - subnet: {get_resource: machine-subnet}
           ip_address: "2620:cf:cf:cf02::fff0"
 
-  controller-admin-port:
-    type: OS::Neutron::Port
-    properties:
-      network: {get_resource: nat64-ipv4-net}
-
   controller-floating-ip:
     depends_on: nat64-ipv4-net-router-interface
     type: OS::Neutron::FloatingIP
     properties:
       floating_network: {get_param: floating_ip_network}
-      port_id: {get_resource: controller-admin-port}
+      port_id: {get_resource: controller-machine-port}
 
   controller:
     type: OS::Nova::Server
@@ -442,7 +443,6 @@ resources:
       flavor: {get_param: [controller_params, flavor]}
       networks:
         - port: {get_resource: controller-machine-port}
-        - port: {get_resource: controller-admin-port}
       user_data_format: RAW
       user_data: {get_resource: controller-init}
 
